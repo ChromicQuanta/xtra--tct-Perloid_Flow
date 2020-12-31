@@ -1,0 +1,158 @@
+<canvas width=800 height=494></canvas>
+<script>
+//Programmed by Chromic Quanta
+  function Paint(x,y,z,vx,vy,vz){
+    this.x=x
+    this.y=y
+    this.z=z
+    this.vx=vx
+    this.vy=vy
+    this.vz=vz
+    this.s = function(x){
+      return (2/(1+(Math.E**-x)))-1
+    }
+    this.display=function(){
+delete zc
+          this.vel = Math.sqrt((this.vx**2)+(this.vy**2)+(this.vz**2))
+              zc=Math.round(this.vel*100000).toString(16)
+              if(zc.length<2){
+                zc="0"+zc
+              }
+              if(zc.length>2){
+                zc="FF"
+              }
+
+      al = zc
+delete zc
+
+          var zc=Math.round(z*40).toString(16)
+
+          if(zc.length<2){
+            zc="0"+zc
+          }
+          if(zc.length>2){
+            zc="FF"
+          }
+
+
+
+
+      zc=Math.round(z*80).toString(16)
+
+      if(zc.length<2){
+        zc="0"+zc
+      }
+      if(zc.length>2){
+        zc="FF"
+      }
+
+      c.fillStyle="#FF"+al+zc+"22"
+      c.beginPath()
+  //    if([ojga])
+      c.arc((this.x*can.width)/this.z,(this.y*can.width)/this.z,1/this.z,0,9)
+      c.fill()
+    }
+  }
+
+
+
+function Ball(x,y,z){
+  this.x=x
+  this.y=y
+  this.z=z
+  this.s = function(x){
+    return (2/(1+(Math.E**-x)))-1
+  }
+  Ball.prototype.display=function(){
+
+
+    this.vx=Perlin(this.x*10,this.y*10,this.z*10)[0]/1000
+    this.vy=Perlin(this.x*10,this.y*10,this.z*10)[1]/1000
+    this.vz=Perlin(this.x*10,this.y*10,this.z*10)[2]/1000
+    this.x+=this.vx
+    this.y+=this.vy
+    this.z+=this.vz
+
+    this.vel = Math.sqrt((this.vx**2)+(this.vy**2)+(this.vz**2))
+        zc=Math.round(this.vel*40).toString(16)
+
+        if(zc.length<2){
+          zc="0"+zc
+        }
+        if(zc.length>2){
+          zc="FF"
+        }
+
+al = zc
+
+    zc=Math.round(z*40).toString(16)
+
+    if(zc.length<2){
+      zc="0"+zc
+    }
+    if(zc.length>2){
+      zc="FF"
+    }
+    c.fillStyle="#FF"+zc+zc+"22"
+    c.beginPath()
+//    if([ojga])
+    balls.push(new Paint(this.x,this.y,this.z,this.vx,this.vy,this.vz))
+    c.fill()
+  }
+}
+can = document.getElementsByTagName("canvas")[0]
+c = can.getContext("2d")
+c.translate(can.width/2,can.height/2)
+gr = (Math.sqrt(5)+1)/2
+function Perlin(x,y,z){
+z*=4
+  return [Math.cos(Math.sin(z*gr*Math.sin(y/60)))+Math.sin(Math.cos(y-Math.sin(z-y))),Math.sin(Math.cos(y*gr))+Math.cos(Math.sin((x*2)+(Math.sin(y/10)*10)*Math.sin(y/gr))),(Math.sin(z)+Math.sin(y+x)+Math.cos(x-y)**2)]
+z/=4
+graph()
+}
+amp=100
+ppn=[]
+function Graph(){
+
+  hm = c.getImageData(0,0,can.width,can.height)
+  for(n=0;n<hm.data.length;n+=4){
+y=Math.floor((n/4)/can.width)
+x=(n/4)-(can.width*y)
+
+pn = Perlin(x/10,y/10,z/10)
+ppn[n]=Perlin(x/10,y/10,z/10)
+
+
+
+    hm.data[n+3]=255
+    hm.data[n]=ppn[n][0]*amp
+    hm.data[n+1]=ppn[n][1]*amp
+      hm.data[n+2]=ppn[n][2]*amp
+  }
+  c.putImageData(hm,0,0)
+}
+//Graph()
+//setInterval(Graph,10)
+
+  c.fillStyle="#000000"
+c.fillRect(-can.width/2,-can.height/2,can.width,can.height)
+balls=[]
+for(o=0;o<1000;o++){
+  balls[o]=new Ball((Math.random()*2)-1,(Math.random()*2)-1,(Math.random()*2)+0.1)
+}
+function Animate(){
+//  c.fillStyle="#000000"
+//c.fillRect(-can.width/2,-can.height/2,can.width,can.height)
+balls.sort((oo,tt) => tt.z-oo.z)
+for(var n=0;n<balls.length;n++){
+  balls[n].display()
+}
+
+
+}
+function Stop(){
+  setTimeout(function(){anc = document.createElement("a");anc.download="Flow.png";anc.href=can.toDataURL();anc.click()},100)
+  Ball.prototype.display = function(){}
+}
+setInterval(Animate,10)
+</script>
